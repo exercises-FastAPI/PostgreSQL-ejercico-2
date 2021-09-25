@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USUARIOS</title>
+    <link href="{{ url_for('iconfont', path='/tabler-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('css', path='/tabler.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('js', path='/sweetaler.min.js') }}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">USUARIOS</a>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="container">
+        <button type="button" class="btn btn-teal" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i class="ti ti-plus"></i> Agregar usuario  
+        </button>
+        <br>
+        <br>
+        <table class="table table-striped shadow-sm bg-white">
+            <thead class="bg-orange text-white">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Dirección</th>
+                    <th>Correo</th>
+                    <th colspan="2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id in listado %}
+                <tr>
+                    <td>{{id['id']}}</td>
+                    <td>{{id['nombre']}}</td>
+                    <td>{{id['edad']}}</td>
+                    <td>{{id['direccion']}}</td>
+                    <td>{{id['correo']}}</td>
+                    <td><a href="/obtener/{{id['id']}}"><button class="btn btn-info"><i class="ti ti-pencil text-white"></i></button></a></td>
+                    <td><a onclick="confirmar({{id['id']}})" href="#"><button class="btn btn-danger"><i class="ti ti-trash  "></i></button></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Agregar usuarios</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/add_user" method="POST">
+                <label for="">Nombre</label>
+                <input type="text" name="nombre" class="form-control" required placeholder="Nombre">
+                <label for="">Edad</label>
+                <input type="number" name="edad" class="form-control" required placeholder="Edad">
+                <label for="">Dirección</label>
+                <input type="text" name="direccion" class="form-control" required placeholder="Dirección">
+                <label for="">Correo</label>
+                <input type="email" name="correo" class="form-control" required placeholder="Correo">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script language="javascript"> 
+    function confirmar(id){ 
+        console.log(id);
+        swal("Esta seguro de alimnar este usuario?", {
+            buttons: {
+                cancel: "Cancelar!",
+                catch: {
+                text: "Confirmar",
+                },
+            },
+            })
+            .then((value) => {
+            switch (value) {
+            
+                case "catch":
+                swal("Usuario eliminado correctamente");
+                setTimeout(function () {
+                    window.location.href="/eliminar/"+id;
+                }, 2000);
+                break;
+                default:
+                swal("Operación cancelada");
+            }
+            });
+    }
+    </script>
+    <script src="{{ url_for('js', path='/jquery.min.js') }}"></script>
+    <script src="{{ url_for('js', path='/tabler.min.js') }}"></script>
+</body>
+</html>

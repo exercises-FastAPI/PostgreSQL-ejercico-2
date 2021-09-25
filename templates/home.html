@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar datos</title>
+    <link href="{{ url_for('iconfont', path='/tabler-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('css', path='/tabler.min.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MODIFICAR DATOS</a>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="container">
+        <form class="bg-white p-4 shadow-sm rounded-lg" action="/update_user" method="POST">
+            <input type="hidden" name="usuario_id" id="" value="{{datos['id']}}">
+            <div class="row">
+                <div class="col-lg-4">
+                    <label for="">Nombre</label>
+                    <input type="text" name="u_nombre" class="form-control" required placeholder="Nombre" value="{{datos['nombre']}}">
+                </div>
+                <div class="col-lg-2">
+                    <label for="">Edad</label>
+                    <input type="number" name="u_edad" class="form-control" required placeholder="Edad" value="{{datos['edad']}}">
+                </div>
+                <div class="col-lg-6">
+                    <label for="">Dirección</label>
+                    <input type="text" name="u_direccion" class="form-control" required placeholder="Dirección" value="{{datos['direccion']}}">
+                </div>
+                <div class="col-lg-4">
+                    <label for="">Correo</label>
+                    <input type="email" name="u_correo" class="form-control" required placeholder="Correo" value="{{datos['correo']}}">
+                </div>
+            </div>
+            <br>
+            <a href="/" class="btn btn-danger text-white">Cancelar</a>
+            <button type="submit" class="btn btn-info text-white">Actualizar</button>
+        </form>
+    </div>  
+    <script src="{{ url_for('js', path='/jquery.min.js') }}"></script>
+    <script src="{{ url_for('js', path='/tabler.min.js') }}"></script>
+</body>
+</html>
